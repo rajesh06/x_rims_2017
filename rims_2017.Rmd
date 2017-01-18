@@ -1,0 +1,242 @@
+---
+title: "Presentation Ninja"
+subtitle: "⚔<br/>with xaringan"
+author: "Yihui Xie"
+date: "2016/12/12"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "extra.css"]
+    seal: FALSE
+    nature:
+      highlightStyle: github
+      highlightLines: true
+runtime: shiny
+---
+
+<!-- seal: FALSE means that we need to write our own title slide -->
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+<script>
+    $(document).ready(function() {
+    $('slide:not(.title-slide, .backdrop, .segue)').append('<footer></footer>');    
+    $('footer').attr('label', 'OLIVER WYMAN');
+    })
+</script>
+
+<style>
+.remark-slide-number {
+    background-color: black;
+    color: red;
+    margin: 20px 0 20px 0;
+    padding: 20px;
+} 
+
+
+h1, h2, h3, h4, h5, h6{
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+
+</style>
+
+
+
+
+<!-- Title Slide -->
+<img src="http://www.oliverwyman.com/etc/designs/oliverwymanv2/images/logo.png" style="width:300px;">
+
+<h1 style="text-indent:50px;">RIMS 2017</h1>
+<h2 style="text-indent:50px;">IND20/251	Transportation Industry Session</h2>
+<br>
+<h3 style="text-indent:50px;">Rajesh Sahasrabuddhe</h3> 
+<h3 style="text-indent:50px;">Oliver Wyman
+
+---
+
+# Disclaimers
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+- Oliver Wyman is not a public accounting firm and does not provide accounting advice.
+
+--
+
+- I am an actuary. I am not an accountant.
+
+---
+
+# Current Practices
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+## Raise your hand if you ...
+
+- Record libailities on a discounted basis
+
+--
+
+- Record liabilities on a nominal / undiscounted basis
+  
+--
+  
+- Don't know the basis of your recorded liabilities
+
+---
+
+
+# Goals for Presentation
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+## Discounting Self-Insured Claim Liabilities
+- Accounting guidance
+
+--
+
+- Actuarial guidance
+
+--
+
+## Applications
+
+- Insurance programs
+
+--
+
+- Technology and telematics
+
+---
+
+# Goals for Presentation
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+## Discounting Self-Insured Claim Liabilities
+
+ - Accounting guidance
+ - Actuarial guidance
+
+## Applications
+
+ - Insurance programs
+ - Technology and telematics
+
+---
+# Accounting Guidance
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+Current accounting guidances does not specifically address claim liabilities for non-insurance entities. As such, we rely on general accounting guidance that applies to all businesses.
+
+  - US GAAP: "FAS 5", *Accounting for Contingencies*
+    - [Statement of Financial Accounting Standards No. 5](http://www.fasb.org/jsp/FASB/Document_C/DocumentPage?cid=1218220126761&acceptedDisclaimer=true), March 1975
+    - [Account Standards Codification 450-20 Loss Contingencies](https://asc.fasb.org/subtopic&trid=2127163)
+  - U.S. Securities and Exchange Commission
+    - [Accounting and Disclosures Relating to Loss Contingencies](https://www.sec.gov/interps/account/sabcodet5.htm#Y)
+  
+---
+# Accounting Guidance
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+  [IFRS: IAS 37 *Provisions, Contingent Liabilities and Contingent Assets*](http://eifrs.ifrs.org/eifrs/bnstandards/en/2016/ias37.pdf)
+  
+  **Risks and uncertainties**
+  <div class="smallfont"> 42. The risks and uncertainties that inevitably surround many events and circumstances shall be taken into account in reaching the best estimate of a provision. </div>
+  
+  <div class="small"> 43. Risk describes variability of outcome. A risk adjustment may increase the amount at which a liability is measured. Caution is needed in making judgements under conditions of uncertainty, so that income or assets are not overstated and expenses or liabilities are not understated. However, uncertainty does not justify the creation of excessive provisions or a deliberate overstatement of liabilities. For example, if the projected costs of a particularly adverse outcome are estimated on a prudent basis, that outcome is not then deliberately treated as more probable than is realistically the case. Care is needed to avoid duplicating adjustments for risk and uncertainty with consequent overstatement of a provision.</div>
+
+---
+# Accounting Guidance
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+  [IFRS: IAS 37 *Provisions, Contingent Liabilities and Contingent Assets*](http://eifrs.ifrs.org/eifrs/bnstandards/en/2016/ias37.pdf)
+  
+  **Present Value**
+  
+  45.  Where the effect of the time value of money is material, the amount of a provision shall be the present value of the expenditures expected to be required to settle the obligation.
+  46. Because of the time value of money, provisions relating to cash outflows that arise soon after the reporting period are more onerous than those where cash outflows of the same amount arise later. Provisions are therefore discounted, where the effect is material.
+  47.  The discount rate (or rates) shall be a pre-tax rate (or rates) that reflect(s) current market assessments of the time value of money and the risks specific to the liability. The discount rate(s) shall not reflect risks for which future cash flow estimates have been adjusted.
+    
+---
+# Accounting Guidance
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+  - Actuarial Standarad of Practice No. 20, *Discounting of Property/Casualty Unpaid Claim Estimates*
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+---
+# Additional Risk <br> (and Risk Management Opportunities)
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+---
+# Base Case Example
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+```{r, echo = FALSE}
+library(shiny)
+shinyApp(
+  
+  ui = fluidPage(
+    selectInput("region", "Region:", 
+                choices = colnames(WorldPhones)),
+    plotOutput("phonePlot")
+  ),
+  
+  server = function(input, output) {
+    output$phonePlot <- renderPlot({
+      barplot(WorldPhones[,input$region]*1000, 
+              ylab = "Number of Telephones", xlab = "Year")
+    })
+  },
+  
+  options = list(height = 500)
+)
+```
+
+---
+# Insurance Programs
+<footer>
+  OLIVER WYMAN
+</footer>
+--
+
+---
+# Technology and Telematics
+<footer>
+  OLIVER WYMAN
+</footer>
+--
