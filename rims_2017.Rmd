@@ -11,11 +11,10 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
-runtime: shiny
 ---
 
 <!-- seal: FALSE means that we need to write our own title slide -->
-
+<!-- font-family: "SlateRegular",Geneva,Tahoma,Verdana,sans-serif; -->
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -118,24 +117,6 @@ h1, h2, h3, h4, h5, h6{
 - Technology and telematics
 
 ---
-
-# Goals for Presentation
-<footer>
-  OLIVER WYMAN
-</footer>
---
-
-## Discounting Self-Insured Claim Liabilities
-
- - Accounting guidance
- - Actuarial guidance
-
-## Applications
-
- - Insurance programs
- - Technology and telematics
-
----
 # Accounting Guidance
 <footer>
   OLIVER WYMAN
@@ -160,9 +141,12 @@ Current accounting guidances does not specifically address claim liabilities for
   [IFRS: IAS 37 *Provisions, Contingent Liabilities and Contingent Assets*](http://eifrs.ifrs.org/eifrs/bnstandards/en/2016/ias37.pdf)
   
   **Risks and uncertainties**
-  <div class="smallfont"> 42. The risks and uncertainties that inevitably surround many events and circumstances shall be taken into account in reaching the best estimate of a provision. </div>
+  <ol start="42">
+  <li> The risks and uncertainties that inevitably surround many events and circumstances shall be taken into account in reaching the best estimate of a provision. </li>
   
-  <div class="small"> 43. Risk describes variability of outcome. A risk adjustment may increase the amount at which a liability is measured. Caution is needed in making judgements under conditions of uncertainty, so that income or assets are not overstated and expenses or liabilities are not understated. However, uncertainty does not justify the creation of excessive provisions or a deliberate overstatement of liabilities. For example, if the projected costs of a particularly adverse outcome are estimated on a prudent basis, that outcome is not then deliberately treated as more probable than is realistically the case. Care is needed to avoid duplicating adjustments for risk and uncertainty with consequent overstatement of a provision.</div>
+  <li> Risk describes variability of outcome. A risk adjustment may increase the amount at which a liability is measured. Caution is needed in making judgements under conditions of uncertainty, so that income or assets are not overstated and expenses or liabilities are not understated. However, uncertainty does not justify the creation of excessive provisions or a deliberate overstatement of liabilities. For example, if the projected costs of a particularly adverse outcome are estimated on a prudent basis, that outcome is not then deliberately treated as more probable than is realistically the case. Care is needed to avoid duplicating adjustments for risk and uncertainty with consequent overstatement of a provision.</li>
+  
+  </ol>
 
 ---
 # Accounting Guidance
@@ -180,17 +164,14 @@ Current accounting guidances does not specifically address claim liabilities for
   47.  The discount rate (or rates) shall be a pre-tax rate (or rates) that reflect(s) current market assessments of the time value of money and the risks specific to the liability. The discount rate(s) shall not reflect risks for which future cash flow estimates have been adjusted.
     
 ---
-# Accounting Guidance
+# Actuarial Guidance
 <footer>
   OLIVER WYMAN
 </footer>
 --
 
-  - Actuarial Standarad of Practice No. 20, *Discounting of Property/Casualty Unpaid Claim Estimates*
-<footer>
-  OLIVER WYMAN
-</footer>
---
+[Actuarial Standarad of Practice No. 20, *Discounting of Property/Casualty Unpaid Claim Estimates*](http://www.actuarialstandardsboard.org/asops/discounting-propertycasualty-unpaid-claim-estimates/)
+
 
 ---
 # Additional Risk <br> (and Risk Management Opportunities)
@@ -206,26 +187,7 @@ Current accounting guidances does not specifically address claim liabilities for
 </footer>
 --
 
-```{r, echo = FALSE}
-library(shiny)
-shinyApp(
-  
-  ui = fluidPage(
-    selectInput("region", "Region:", 
-                choices = colnames(WorldPhones)),
-    plotOutput("phonePlot")
-  ),
-  
-  server = function(input, output) {
-    output$phonePlot <- renderPlot({
-      barplot(WorldPhones[,input$region]*1000, 
-              ylab = "Number of Telephones", xlab = "Year")
-    })
-  },
-  
-  options = list(height = 500)
-)
-```
+
 
 ---
 # Insurance Programs
